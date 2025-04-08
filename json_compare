@@ -1,0 +1,36 @@
+import json
+
+# Specify the paths of the two JSON files
+file1_path = "/path/to/your/folder1/file1.json"
+file2_path = "/path/to/your/folder2/file2.json"
+
+# Load the JSON data from both files
+with open(file1_path, "r") as file1, open(file2_path, "r") as file2:
+    json_data1 = json.load(file1)
+    json_data2 = json.load(file2)
+
+# Function to compare JSON data and calculate score
+def compare_json_keys_and_values(data1, data2):
+    score = 0
+    identical_keys = set(data1.keys()).intersection(set(data2.keys()))
+    mismatched_keys = []
+
+    for key in identical_keys:
+        if data1[key] == data2[key]:
+            score += 1  # Increase score for matching values
+        else:
+            score -= 1  # Decrease score for mismatched values
+            mismatched_keys.append((key, data1[key], data2[key]))
+
+    return score, mismatched_keys
+
+# Compare the JSON data
+score, differences = compare_json_keys_and_values(json_data1, json_data2)
+
+print(f"Score: {score}")
+if not differences:
+    print("All identical keys have matching values.")
+else:
+    print("The JSON files have differences in identical keys:")
+    for key, value1, value2 in differences:
+        print(f"Key: {key}, File1 Value: {value1}, File2 Value: {value2}")
