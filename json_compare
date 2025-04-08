@@ -34,3 +34,20 @@ else:
     print("The JSON files have differences in identical keys:")
     for key, value1, value2 in differences:
         print(f"Key: {key}, File1 Value: {value1}, File2 Value: {value2}")
+
+# Specify the folder path
+folder_path = output_folder
+
+# Iterate through the files in the folder
+for file_name in os.listdir(folder_path):
+    # Check if the file has a .txt extension
+    if file_name.endswith('.txt'):
+        # Construct the full file path
+        old_file_path = os.path.join(folder_path, file_name)
+        # Replace the .txt extension with .json
+        new_file_name = file_name.replace('.txt', '.json')
+        new_file_path = os.path.join(folder_path, new_file_name)
+        # Rename the file
+        os.rename(old_file_path, new_file_path)
+
+print("All .txt files have been renamed to .json.")
