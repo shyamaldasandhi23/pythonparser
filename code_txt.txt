@@ -1,0 +1,18 @@
+class EducationDetail(BaseModel):
+    """Schema for education details with fixed fields."""
+    degreename: str = Field(default="Unknown", description="The name of the degree")
+    degree: str = Field(default="Unknown", description="The degree obtained")
+    year_of_start: str = Field(default="Unknown", description="The year the course started")
+    year_of_end: str = Field(default="Unknown", description="The year the course ended")
+    city: str = Field(default="Unknown", description="The city where the education was pursued")
+    state: str = Field(default="Unknown", description="The state where the education was pursued")
+    country: str = Field(default="Unknown", description="The country where the education was pursued")
+    marks: str = Field(default="Unknown", description="The marks obtained")
+
+class PersonWithEducation(BaseModel):
+    """Schema for a person with nested education details."""
+    name: Optional[str] = Field(default=None, description="The name of the person")
+    education_details: List[EducationDetail] = Field(
+        default_factory=list,
+        description="A list of education details with fixed fields"
+    )
